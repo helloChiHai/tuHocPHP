@@ -7,11 +7,14 @@
 @section('content')
     <h1>Thêm sản phẩm</h1>
     <form action="" method="POST">
-        @if ($errors->any())
+        {{-- @if ($errors->any())
             <div class="alert alert-danger text-center">
                 {{ $ErrorMessage }}
             </div>
-        @endif
+        @endif --}}
+        @error('msg')
+            <div class="alert alert-danger text-center">{{ $message }}</div>
+        @enderror
         <div class="mb-3">
             <label for="">Tên sản phẩm</label>
             <input type="text" class="form-control" name="product_name" placeholder="Tên sản phẩm"

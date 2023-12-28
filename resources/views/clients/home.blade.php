@@ -11,6 +11,12 @@
 @endsection
 
 @section('content')
+    @if (session('msg'))
+        <div class="alter alert-{{ session('type') }}">
+            {{ session('msg') }}
+        </div>
+    @endif
+
     <h1>Trang chủ</h1>
     @include('clients.contents.slide')
     @include('clients.contents.about')
