@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests\ProductRequest;
+
 class HomeController extends Controller
 {
     public function index()
@@ -33,31 +35,38 @@ class HomeController extends Controller
         return view('clients.add', $dataView);
     }
 
-    public function postAdd(Request $request)
+    // ĐANG DÙNG FORM VALIDATION
+    public function postAdd(ProductRequest $request)
     {
-        $rules = [
-            // min:6 => 6 ký tự
-            'product_name' => 'required|min:6',
-            // integer => số
-            'product_price' => 'required|integer'
-        ];
-
-        // $message = [
-        //     'product_name.required' => 'Vui lòng nhập tên sản sản phẩm',
-        //     'product_name.min' => 'Độ dài phải lớn hơn :min ký tự',
-        //     'product_price.required' => 'Vui lòng nhập giá trị sản phẩm',
-        //     'product_price.integer' => 'Giá trị phải là số'
-        // ];
-
-        $message = [
-            'required' => ':attribute bắt buộc phải nhập',
-            'min' => 'Độ dài phải lớn hơn :min ký tự',
-            'integer' => 'Giá trị phải là số'
-        ];
-        $request->validate($rules, $message);
-
+        dd($request);
         // xử lý việc thêm dữ liệu vào database
     }
+
+    // public function postAdd(Request $request)
+    // {
+    //     $rules = [
+    //         // min:6 => 6 ký tự
+    //         'product_name' => 'required|min:6',
+    //         // integer => số
+    //         'product_price' => 'required|integer'
+    //     ];
+
+    //     // $message = [
+    //     //     'product_name.required' => 'Vui lòng nhập tên sản sản phẩm',
+    //     //     'product_name.min' => 'Độ dài phải lớn hơn :min ký tự',
+    //     //     'product_price.required' => 'Vui lòng nhập giá trị sản phẩm',
+    //     //     'product_price.integer' => 'Giá trị phải là số'
+    //     // ];
+
+    //     $message = [
+    //         'required' => ':attribute bắt buộc phải nhập',
+    //         'min' => 'Độ dài phải lớn hơn :min ký tự',
+    //         'integer' => 'Giá trị phải là số'
+    //     ];
+    //     $request->validate($rules, $message);
+
+    //     // xử lý việc thêm dữ liệu vào database
+    // }
 
     public function putAdd(Request $request)
     {
