@@ -11,7 +11,11 @@
 
 @section('content')
     <h1>SẢN PHẨM</h1>
-    <x-package-alert/>
+    @if (session('msg'))
+        <div class="alert alert-success">
+            {{ session('msg') }}
+        </div>
+    @endif
     @push('scripts')
         <script>
             console.log('stack lan 2')
