@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth.admin');
 
@@ -51,4 +52,9 @@ Route::prefix('categories')->group(function () {
 Route::middleware('auth.admin')->prefix('admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index']);
     Route::resource('products', ProductsController::class)->middleware('auth.admin.product');
+});
+
+// user
+Route::prefix('users')->group(function () {
+    Route::get('', [UserController::class, 'index']);
 });

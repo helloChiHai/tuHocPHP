@@ -8,12 +8,23 @@ use App\Http\Requests\ProductRequest;
 
 use Illuminate\Support\Facades\Validator;
 
+use App\Rules\Uppercase;
+
+use Illuminate\Support\Facades\DB;
+
 class HomeController extends Controller
 {
     public function index()
     {
         $title = 'Trang chủ';
         $SuccessAlert = "Đặt hàng thành công";
+
+        // $users = DB::select('SELECT * FROM users WHERE id > ?', [1]);
+        // $users = DB::select('SELECT * FROM users WHERE email=:email', [
+        //     'email' => 'chihai123@gmail.com'
+        // ]);
+
+        // dd($users);
         return view('clients.home', compact('title', 'SuccessAlert'));
     }
 
@@ -41,7 +52,7 @@ class HomeController extends Controller
     public function postAdd(Request $request)
     {
         $rules = [
-            'product_name' => 'required|min:6',
+            'product_name' => ['required', 'min:6', new Uppercase],
             'product_price' => 'required|integer'
         ];
 
