@@ -58,4 +58,60 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('msg', 'Thêm người dùng thành công');
     }
+
+    public function getEdit(Request $request, $id = 0)
+    {
+        if (!empty($id)) {
+            $userDetail = $this->users->getDetail($id);
+            if (!empty($userDetail[0])) {
+                $request->session()->put('id', $id);
+                $userDetail = $userDetail[0];
+            } else {
+                return redirect()->route('users.index')->with('msg', 'Người dùng không tồn tại');
+            }
+        } else {
+            return redirect()->route('users.index')->with('msg', 'Liên kết không tồn tại');
+        }
+
+        $dataView = [
+            'title' => 'Cập nhật người dùng',
+            'userDetail' => $userDetail
+        ];
+
+        return view('clients.users.edit', $dataView);
+    }
+
+    public function postEdit(Request $request)
+    {
+        $id = session('id');
+
+        if (empty($id)) {
+            return back()->with('msg', 'Liên kết không tồn tại');
+        }
+
+        $rule = [
+            'fullname' => 'required|min:5',
+            'email' => 'required|email|unique:users,email,' . $id
+        ];
+
+        $message = [
+            'fullname.required' => 'Họ và tên bắt buộc phải nhập',
+            'fullname.min' => 'Phải lớn hơn 5 ký tự',
+            'email.required' => 'Email không được để trống',
+            'email.email' => 'Email không đúng định dạng',
+            'email.unique' => 'Email đã tồn tại'
+        ];
+
+        $request->validate($rule, $message);
+
+        $dataUpdate = [
+            $request->fullname,
+            $request->email,
+            date('Y-m-d H:i:s')
+        ];
+
+        $this->users->updateUser($dataUpdate, $id);
+
+        return back()->with('msg', 'Cập nhật thành công');
+    }
 }

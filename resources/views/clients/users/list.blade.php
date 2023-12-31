@@ -20,6 +20,8 @@
                 <th>Họ tên</th>
                 <th>Email</th>
                 <th width="30%">Thời gian tạo</th>
+                <th width="5%">Sửa</th>
+                <th width="5%">Xóa</th>
             </tr>
         </thead>
         <tbody>
@@ -30,11 +32,17 @@
                         <td>{{ $item->fullname }}</td>
                         <td>{{ $item->email }}</td>
                         <td>{{ $item->create_at }}</td>
+                        <td>
+                            <a href="{{ route('users.edit', ['id' => $item->id]) }}" class="btn btn-warning btn-sm">Sửa</a>
+                        </td>
+                        <td>
+                            <a href="#" class="btn btn-danger btn-sm">Xóa</a>
+                        </td>
                     </tr>
                 @endforeach
             @else
                 <tr>
-                    <td colspan="4" class="text-center">Không có dữ liệu</td>
+                    <td colspan="6" class="text-center">Không có dữ liệu</td>
                 </tr>
             @endif
 
