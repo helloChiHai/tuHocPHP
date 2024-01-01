@@ -16,10 +16,10 @@
     <table class="table table-bordered">
         <thead>
             <tr class="text-center">
-                <th width="5%">ID</th>
+                <th width="5%">STT</th>
                 <th>Họ tên</th>
                 <th>Email</th>
-                <th width="30%">Thời gian tạo</th>
+                <th width="25%">Thời gian tạo</th>
                 <th width="5%">Sửa</th>
                 <th width="5%">Xóa</th>
             </tr>
@@ -36,7 +36,9 @@
                             <a href="{{ route('users.edit', ['id' => $item->id]) }}" class="btn btn-warning btn-sm">Sửa</a>
                         </td>
                         <td>
-                            <a href="#" class="btn btn-danger btn-sm">Xóa</a>
+                            <a onclick="return confirm('Bạn có chắc muốn xóa?')"
+                                href="{{ route('users.delete', ['id' => $item->id]) }}"
+                                class="btn btn-danger btn-sm">Xóa</a>
                         </td>
                     </tr>
                 @endforeach
