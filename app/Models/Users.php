@@ -41,4 +41,30 @@ class Users extends Model
     {
         return DB::delete("DELETE FROM $this->table WHERE id=?", [$id]);
     }
+
+
+    // TRUY VAN BANG QUERY BUILDER
+    public function learnQueryBuilder()
+    {
+        // lấy tất cả bản ghi của bảng
+        // $list = DB::table($this->table)->get();
+
+
+        // lấy tất cả bản ghi của bảng bằng select
+        $list = DB::table($this->table)
+            // ->where('id', '=', 4)
+            ->select('fullname as hoTen', 'email')
+            ->where([
+                ['id', '>=', 2],
+                ['id', '<=', 5]
+            ])
+            ->get();
+        dd($list);
+
+        // lấy 1 bản ghi đầu tiên của table 
+        // (thường là dùng lấy thông tin chi tiết)
+        $detail = DB::table($this->table)->first();
+        // dd($detail);
+        // dd($detail->email);
+    }
 }

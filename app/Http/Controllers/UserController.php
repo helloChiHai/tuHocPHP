@@ -14,14 +14,26 @@ class UserController extends Controller
     {
         $this->users = new Users();
     }
+
+    // TRUY VAN QUERY BUILDER
     public function index()
     {
         $dataView = [
             'title' => 'Danh sách người dùng',
-            'userList' => $this->users->getAllUser()
+            'userList' => $this->users->learnQueryBuilder()
         ];
         return view('clients.users.list', $dataView);
     }
+
+    // TRUY VAN SQL
+    // public function index()
+    // {
+    //     $dataView = [
+    //         'title' => 'Danh sách người dùng',
+    //         'userList' => $this->users->getAllUser()
+    //     ];
+    //     return view('clients.users.list', $dataView);
+    // }
 
     public function add()
     {
