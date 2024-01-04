@@ -51,13 +51,37 @@ class Users extends Model
 
 
         // lấy tất cả bản ghi của bảng bằng select
-        $list = DB::table($this->table)
-            // ->where('id', '=', 4)
-            ->select('fullname as hoTen', 'email')
-            ->where([
-                ['id', '>=', 2],
-                ['id', '<=', 5]
-            ])
+        // $list = DB::table($this->table)
+        // ->where('id', '=', 4)
+        // ->select('fullname as hoTen', 'email', 'id', 'create_at')
+        // // ->where([
+        // //     ['id', '>=', 2],
+        // //     ['id', '<=', 5]
+        // // ])
+        // // tifm kiem
+        // // ->where('fullname', 'like', '%h%')
+        // // tìm kiếm trong khoảng
+        // // ->whereBetween('id', [0, 2])
+        // // tìm kiếm ngoài khoảng
+        // // ->whereNotBetween('id', [0, 2])
+        // // tìm kiếm theo ngày - tháng - năm
+        // // ->whereDate('create_at', '2023-12-31')
+        // // // tìm kiếm theo tháng
+        // // ->whereMonth('create_at', '01')
+        // // // tìm kiếm theo ngày
+        // // ->whereDay('create_at', '31')
+        // // // tìm kiếm theo năm
+        // // ->whereYear('create_at', '2023')
+        // // so sánh 2 cột
+        // ->whereColumn('create_at', '=', 'create_at')
+        // ->get();
+
+        // LIÊN KẾT BẢNG
+        $list = DB::table('users')
+        ->select('users.*', 'groups.name as group_name')
+            ->rightJoin('groups', 'users.group_id', '=', 'groups.id')
+            // ->leftJoin('groups', 'users.group_id', '=', 'groups.id')
+            // ->join('groups', 'users.group_id', '=', 'groups.id')
             ->get();
         dd($list);
 
