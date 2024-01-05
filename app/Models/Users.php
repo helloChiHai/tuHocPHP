@@ -76,13 +76,33 @@ class Users extends Model
         // ->whereColumn('create_at', '=', 'create_at')
         // ->get();
 
-        // LIÊN KẾT BẢNG
+        // // LIÊN KẾT BẢNG
+        // $list = DB::table('users')
+        // ->select('users.*', 'groups.name as group_name')
+        //     ->rightJoin('groups', 'users.group_id', '=', 'groups.id')
+        //     // ->leftJoin('groups', 'users.group_id', '=', 'groups.id')
+        //     // ->join('groups', 'users.group_id', '=', 'groups.id')
+        //     ->get();
+        // dd($list);
+
+        // SẮP XẾP
         $list = DB::table('users')
-        ->select('users.*', 'groups.name as group_name')
-            ->rightJoin('groups', 'users.group_id', '=', 'groups.id')
-            // ->leftJoin('groups', 'users.group_id', '=', 'groups.id')
-            // ->join('groups', 'users.group_id', '=', 'groups.id')
+            // ->orderBy('id', 'desc')
+            // ->orderBy('create_at', 'asc')
+
+            // SẮP XẾP NGẪU NHIÊn
+            // ->inRandomOrder()
+
+            // TRUY VẤN THEO NHÓM => HAVING
+            // ->select(DB::raw('count(id) as email_count'), 'email')
+            // ->groupBy('email')
+            // ->having('email_count', '>=', '2')
+
+            // GIỚI HẠN (vd: từ 0 đến 2)
+            ->offset(0)
+            ->limit(2) 
             ->get();
+
         dd($list);
 
         // lấy 1 bản ghi đầu tiên của table 
