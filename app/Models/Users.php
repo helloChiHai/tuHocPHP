@@ -86,29 +86,70 @@ class Users extends Model
         // dd($list);
 
         // SẮP XẾP
-        $list = DB::table('users')
-            // ->orderBy('id', 'desc')
-            // ->orderBy('create_at', 'asc')
+        // $list = DB::table('users')
+        //     // ->orderBy('id', 'desc')
+        //     // ->orderBy('create_at', 'asc')
 
-            // SẮP XẾP NGẪU NHIÊn
-            // ->inRandomOrder()
+        //     // SẮP XẾP NGẪU NHIÊn
+        //     // ->inRandomOrder()
 
-            // TRUY VẤN THEO NHÓM => HAVING
-            // ->select(DB::raw('count(id) as email_count'), 'email')
-            // ->groupBy('email')
-            // ->having('email_count', '>=', '2')
+        //     // TRUY VẤN THEO NHÓM => HAVING
+        //     // ->select(DB::raw('count(id) as email_count'), 'email')
+        //     // ->groupBy('email')
+        //     // ->having('email_count', '>=', '2')
 
-            // GIỚI HẠN (vd: từ 0 đến 2)
-            ->offset(0)
-            ->limit(2) 
-            ->get();
+        //     // GIỚI HẠN (vd: từ 0 đến 2)
+        //     ->offset(0)
+        //     ->limit(2) 
+        //     ->get();
 
-        dd($list);
+        // dd($list);
 
         // lấy 1 bản ghi đầu tiên của table 
         // (thường là dùng lấy thông tin chi tiết)
-        $detail = DB::table($this->table)->first();
+        // $detail = DB::table($this->table)->first();
         // dd($detail);
         // dd($detail->email);
+
+        //  THÊM DỮ LIỆU VÀO BẢNG
+        // C1:
+        // $status = DB::table('users')->insert([
+        //     'fullname' => 'Nguyễn Văn B',
+        //     'email' => 'bne123@gmail.com',
+        //     'group_id' => 1,
+        //     'create_at' => date('Y-m-d H:i:s')
+        // ]);
+        // dd($status);
+        // C2:
+        // $lastID = DB::table('users')->insertGetId([
+        //     'fullname' => 'Nguyễn Văn B',
+        //     'email' => 'bn1e123@gmail.com',
+        //     'group_id' => 1,
+        //     'create_at' => date('Y-m-d H:i:s')
+        // ]);
+        // dd($lastID);
+
+        // // CẬP NHẬT DỮ LIỆU (note: cập nhật tất cả thì BỎ WHERE)
+        // $status = DB::table('users')
+        //     ->where('id', 7)
+        //     ->update([
+        //         'fullname' => 'Nguyễn Văn C',
+        //         'email' => 'cncc123@gmail.com',
+        //         'create_at' => date('Y-m-d H:i:s')
+        //     ]);
+
+        // dd($status);
+
+        // // XÓA DỮ LIỆU (note:xóa tất cả thì BỎ WHERE)
+        // $status = DB::table('users')
+        //     ->where('id', 7)
+        //     ->delete();
+
+        // dd($status);
+
+        // ĐẾM SỐ BẢN NGHI
+        $List = DB::table('users')->where('id', '>', 2)->get();
+        $countList = count($List);
+        dd($countList);
     }
 }
