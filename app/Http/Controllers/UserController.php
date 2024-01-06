@@ -15,25 +15,54 @@ class UserController extends Controller
         $this->users = new Users();
     }
 
-    // TRUY VAN QUERY BUILDER
-    public function index()
-    {
-        $dataView = [
-            'title' => 'Danh sách người dùng',
-            'userList' => $this->users->learnQueryBuilder()
-        ];
-        return view('clients.users.list', $dataView);
-    }
-
-    // TRUY VAN SQL
+    // // TRUY VAN QUERY BUILDER
     // public function index()
     // {
     //     $dataView = [
     //         'title' => 'Danh sách người dùng',
-    //         'userList' => $this->users->getAllUser()
+    //         'userList' => $this->users->learnQueryBuilder()
     //     ];
     //     return view('clients.users.list', $dataView);
     // }
+
+    // TRUY VAN SQL
+    public function index(Request $request)
+    {
+        $filters = [];
+
+        $keywords = null;
+
+        if (!empty($request->status)) {
+            $status = $request->status;
+            if ($status == 'active') {
+                $status = 1;
+            } else {
+                $status = 0;
+            }
+
+            $filters[] = [
+                'users.status', '=', $status
+            ];
+        }
+
+        if (!empty($request->group_id)) {
+            $groupId = $request->group_id;
+            $filters[] = [
+                'users.group_id', '=', $groupId
+            ];
+        }
+
+        if (!empty($request->keywords)) {
+            $keywords = $request->keywords;
+        }
+
+        $dataView = [
+            'title' => 'Danh sách người dùng',
+            'userList' => $this->users->getAllUser($filters, $keywords)
+        ];
+
+        return view('clients.users.list', $dataView);
+    }
 
     public function add()
     {
